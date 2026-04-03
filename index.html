@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>WordMaster — Rhapsody of Realities</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ SPLASH -->
+<div id="splash" class="splash">
+  <div class="splash-glow"></div>
+  <div class="splash-logo-wrap">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="splash-logo-svg">
+      <defs>
+        <radialGradient id="ballGrad" cx="42%" cy="38%" r="60%">
+          <stop offset="0%" stop-color="#C8EEFF"/>
+          <stop offset="55%" stop-color="#2B8FD4"/>
+          <stop offset="100%" stop-color="#0A4A80"/>
+        </radialGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <!-- Gold star ring -->
+      <g fill="#C9A84C" filter="url(#glow)">
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(0,50,50)"/>
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(30,50,50)"/>
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(60,50,50)"/>
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(90,50,50)"/>
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(120,50,50)"/>
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(150,50,50)"/>
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(180,50,50)"/>
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(210,50,50)"/>
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(240,50,50)"/>
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(270,50,50)"/>
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(300,50,50)"/>
+        <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(330,50,50)"/>
+      </g>
+      <!-- Ball -->
+      <circle cx="50" cy="50" r="32" fill="url(#ballGrad)" stroke="#C9A84C" stroke-width="1.5"/>
+      <!-- Gold border ring -->
+      <circle cx="50" cy="50" r="32" fill="none" stroke="#E8C97A" stroke-width="0.5" opacity="0.6"/>
+      <!-- R letter -->
+      <text x="50" y="67" font-family="Georgia, serif" font-size="42" font-weight="bold"
+            fill="#FFE033" text-anchor="middle"
+            stroke="#B8860B" stroke-width="0.8"
+            filter="url(#glow)">R</text>
+      <!-- Sparkles -->
+      <g fill="white" opacity="0.8">
+        <circle cx="33" cy="32" r="1.2"/>
+        <circle cx="67" cy="35" r="0.8"/>
+        <circle cx="29" cy="55" r="0.6"/>
+      </g>
+    </svg>
+  </div>
+  <h1 class="splash-title">WordMaster</h1>
+  <p class="splash-sub">Rhapsody of Realities</p>
+  <div class="splash-loader"><span></span><span></span><span></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ APP -->
+<div id="app" class="app hidden">
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-tab="home" onclick="switchTab('home')">
+      <span class="nav-icon">☀</span>
+      <span class="nav-label">Today</span>
+    </button>
+    <button class="nav-btn" data-tab="archive" onclick="switchTab('archive')">
+      <span class="nav-icon">📖</span>
+      <span class="nav-label">Archive</span>
+    </button>
+    <button class="nav-btn" data-tab="quiz" onclick="switchTab('quiz')">
+      <span class="nav-icon">⚡</span>
+      <span class="nav-label">Quiz</span>
+    </button>
+    <button class="nav-btn" data-tab="challenge" onclick="switchTab('challenge')">
+      <span class="nav-icon">🏆</span>
+      <span class="nav-label">Challenge</span>
+    </button>
+    <button class="nav-btn" data-tab="profile" onclick="switchTab('profile')">
+      <span class="nav-icon">👤</span>
+      <span class="nav-label">Profile</span>
+    </button>
+  </nav>
+
+  <!-- ══════════════════════════════════════ TAB: TODAY -->
+  <div id="tab-home" class="tab active">
+    <div class="tab-scroll">
+
+      <div class="home-header">
+        <div class="header-top">
+          <div class="date-badge">
+            <span id="today-day" class="day-num"></span>
+            <span id="today-month" class="day-month"></span>
+          </div>
+          <div class="header-titles">
+            <p class="header-sub" id="day-label"></p>
+            <h2 id="devotional-title" class="devotional-title">Loading...</h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reading controls -->
+      <div class="read-controls">
+        <button class="ctrl-btn active" data-size="sm" onclick="setFontSize('sm')" style="font-size:0.8rem">A</button>
+        <button class="ctrl-btn" data-size="md" onclick="setFontSize('md')" style="font-size:1rem">A</button>
+        <button class="ctrl-btn" data-size="lg" onclick="setFontSize('lg')" style="font-size:1.25rem">A</button>
+        <div class="ctrl-divider"></div>
+        <button class="ctrl-btn" onclick="toggleTheme()" id="theme-toggle">🌙</button>
+        <div class="ctrl-divider"></div>
+        <button class="ctrl-btn" id="mark-read-btn" onclick="markRead()">✓ Mark Read</button>
+      </div>
+
+      <!-- Scripture / Key Verse -->
+      <div class="scripture-block">
+        <p class="scripture-label">Scripture Reading</p>
+        <p id="scripture-text" class="scripture-text"></p>
+        <p id="scripture-ref" class="scripture-ref"></p>
+      </div>
+
+      <!-- Devotional body -->
+      <div id="devotional-body" class="devotional-body"></div>
+
+      <!-- Prayer / Confession (labelled per PDF) -->
+      <div class="closing-block">
+        <p class="closing-label" id="closing-label">PRAYER</p>
+        <p id="closing-text" class="closing-text"></p>
+      </div>
+
+      <!-- Further Study -->
+      <div class="further-block">
+        <p class="further-label">Further Study</p>
+        <p id="further-text" class="further-text"></p>
+      </div>
+
+      <!-- Bible Reading Plans -->
+      <div class="bible-reading-block">
+        <p class="reading-label">📖 Bible Reading Plans</p>
+        <div class="plan-row">
+          <p class="plan-yr-label">1-Year Plan</p>
+          <p id="plan-1yr" class="plan-text"></p>
+        </div>
+        <div class="plan-row" style="margin-top:8px">
+          <p class="plan-yr-label">2-Year Plan</p>
+          <p id="plan-2yr" class="plan-text"></p>
+        </div>
+        <div class="reading-check" style="margin-top:12px">
+          <button class="reading-check-btn" onclick="checkReading(1)">1-Year ○</button>
+          <button class="reading-check-btn" onclick="checkReading(2)">2-Year ○</button>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="action-row">
+        <button class="action-btn primary" onclick="switchTab('quiz');startQuiz('daily')">
+          Today's Quiz ⚡
+        </button>
+        <button class="action-btn secondary" onclick="shareDevotional()">Share 📤</button>
+      </div>
+
+      <div class="bottom-spacer"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ TAB: ARCHIVE -->
+  <div id="tab-archive" class="tab">
+    <div class="tab-scroll">
+      <div class="page-header">
+        <h2>Archive</h2>
+        <p class="page-sub">Browse past devotionals</p>
+      </div>
+      <div class="month-tabs" id="month-tabs"></div>
+      <div class="archive-grid" id="archive-grid"></div>
+      <div class="bottom-spacer"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ TAB: QUIZ -->
+  <div id="tab-quiz" class="tab">
+
+    <!-- Quiz Home -->
+    <div id="quiz-home-view">
+      <div class="tab-scroll">
+        <div class="page-header">
+          <h2>Bible Quiz</h2>
+          <p class="page-sub">Test your knowledge from the Word</p>
+        </div>
+
+        <div class="quiz-streak">
+          <div class="streak-icon">🔥</div>
+          <div class="streak-info">
+            <p class="streak-num" id="streak-count">0</p>
+            <p class="streak-label">Day Streak</p>
+          </div>
+          <div class="streak-divider"></div>
+          <div class="streak-info">
+            <p class="streak-num" id="total-score">0</p>
+            <p class="streak-label">Total Points</p>
+          </div>
+          <div class="streak-divider"></div>
+          <div class="streak-info">
+            <p class="streak-num" id="quizzes-done">0</p>
+            <p class="streak-label">Completed</p>
+          </div>
+        </div>
+
+        <div class="quiz-modes">
+          <div class="quiz-mode-card" onclick="startQuiz('daily')">
+            <div class="mode-icon">☀</div>
+            <div class="mode-info">
+              <p class="mode-name">Daily Devotional Quiz</p>
+              <p class="mode-desc">5 questions from today's reading</p>
+            </div>
+            <div class="mode-points">+50 pts</div>
+          </div>
+          <div class="quiz-mode-card" onclick="startQuiz('weekly')">
+            <div class="mode-icon">📅</div>
+            <div class="mode-info">
+              <p class="mode-name">Weekly Review</p>
+              <p class="mode-desc">15 questions from this week</p>
+            </div>
+            <div class="mode-points">+150 pts</div>
+          </div>
+          <div class="quiz-mode-card" onclick="startQuiz('scripture')">
+            <div class="mode-icon">✦</div>
+            <div class="mode-info">
+              <p class="mode-name">Scripture Memory</p>
+              <p class="mode-desc">Complete the verse</p>
+            </div>
+            <div class="mode-points">+75 pts</div>
+          </div>
+          <div class="quiz-mode-card" onclick="startQuiz('rapid')">
+            <div class="mode-icon">⚡</div>
+            <div class="mode-info">
+              <p class="mode-name">Rapid Fire</p>
+              <p class="mode-desc">15 seconds per question, max points</p>
+            </div>
+            <div class="mode-points">+200 pts</div>
+          </div>
+          <div class="quiz-mode-card discovery-card" onclick="startQuiz('discovery')">
+            <div class="mode-icon">🔍</div>
+            <div class="mode-info">
+              <p class="mode-name">Discovery Quiz</p>
+              <p class="mode-desc">Practical questions • Share & invite friends</p>
+            </div>
+            <div class="mode-points" style="background:rgba(100,180,255,0.15);color:#64B4FF">Share</div>
+          </div>
+        </div>
+
+        <!-- Community -->
+        <div class="community-card" onclick="openCommunity()">
+          <div class="community-icon">👥</div>
+          <div class="community-info">
+            <p class="community-title">Lovers of the Word</p>
+            <p class="community-sub">Join our Telegram community</p>
+          </div>
+          <div class="community-arrow">›</div>
+        </div>
+
+        <div class="bottom-spacer"></div>
+      </div>
+    </div>
+
+    <!-- Quiz Active -->
+    <div id="quiz-active-view" class="hidden">
+      <div class="quiz-active-header">
+        <button onclick="exitQuiz()" class="quiz-back">←</button>
+        <div class="quiz-progress-bar">
+          <div id="quiz-progress-fill" class="quiz-progress-fill"></div>
+        </div>
+        <div id="quiz-timer" class="quiz-timer">⏱ 30</div>
+      </div>
+      <div class="quiz-active-body">
+        <p id="quiz-q-num" class="quiz-q-num">Question 1 of 5</p>
+        <p id="quiz-question" class="quiz-question"></p>
+        <div id="quiz-options" class="quiz-options"></div>
+        <div id="quiz-feedback" class="quiz-feedback hidden"></div>
+      </div>
+    </div>
+
+    <!-- Quiz Result -->
+    <div id="quiz-result-view" class="hidden">
+      <div class="result-body">
+        <div class="result-icon" id="result-icon">🏆</div>
+        <h2 id="result-title">Excellent!</h2>
+        <p id="result-score-text" class="result-score-text"></p>
+        <div class="result-stats">
+          <div class="rstat"><p id="r-correct">0</p><span>Correct</span></div>
+          <div class="rstat"><p id="r-points">0</p><span>Points</span></div>
+          <div class="rstat"><p id="r-time">0s</p><span>Time</span></div>
+        </div>
+        <button class="action-btn primary" onclick="shareResult()">Challenge a Friend 🏆</button>
+        <button class="action-btn secondary" onclick="exitQuiz()">Back to Quizzes</button>
+      </div>
+    </div>
+
+    <!-- Discovery Result -->
+    <div id="discovery-result-view" class="hidden">
+      <div class="result-body">
+        <div class="result-icon" id="disc-result-icon">🔍</div>
+        <h2 id="disc-result-title">Here's What Your Answers Reveal</h2>
+        <p id="disc-result-sub" class="result-score-text"></p>
+        <div id="disc-insights" class="disc-insights"></div>
+        <div style="background:var(--surface);border:1px solid var(--border-gold);border-radius:var(--radius-sm);padding:14px;margin:8px 0;text-align:center">
+          <p style="font-size:0.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:6px">Read Today's Article</p>
+          <p style="font-size:0.85rem;color:var(--text)" id="disc-article-title"></p>
+        </div>
+        <button class="action-btn primary" onclick="shareDiscovery()">Invite Friends to Try 📤</button>
+        <button class="action-btn secondary" onclick="switchTab('home');exitQuiz()">Read Today's Article →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════ TAB: CHALLENGE -->
+  <div id="tab-challenge" class="tab">
+
+    <!-- Challenge Home -->
+    <div id="challenge-home-view">
+      <div class="tab-scroll">
+        <div class="page-header">
+          <h2>Challenges</h2>
+          <p class="page-sub">Compete with friends in the Word</p>
+        </div>
+
+        <div class="leaderboard-card">
+          <p class="lb-title">🏆 This Week's Champions</p>
+          <div id="leaderboard-list" class="leaderboard-list"></div>
+        </div>
+
+        <div class="challenge-actions">
+          <button class="challenge-big-btn" onclick="createChallenge()">
+            <span class="chal-btn-icon">⚔</span>
+            <div>
+              <p class="chal-btn-title">Create Challenge</p>
+              <p class="chal-btn-sub">Invite a friend to a quiz duel</p>
+            </div>
+          </button>
+          <button class="challenge-big-btn" onclick="joinChallenge()">
+            <span class="chal-btn-icon">🔗</span>
+            <div>
+              <p class="chal-btn-title">Join Challenge</p>
+              <p class="chal-btn-sub">Enter a challenge code</p>
+            </div>
+          </button>
+        </div>
+
+        <div class="active-challenges">
+          <p class="section-title">Active Challenges</p>
+          <div id="active-challenges-list"></div>
+        </div>
+
+        <div class="bottom-spacer"></div>
+      </div>
+    </div>
+
+    <!-- Challenge Active (Duel) -->
+    <div id="challenge-active-view" class="hidden">
+      <div class="challenge-duel-header">
+        <div class="duelist">
+          <div class="duelist-avatar" id="your-avatar">Y</div>
+          <p class="duelist-name" id="your-name">You</p>
+          <p class="duelist-score" id="your-score">0</p>
+        </div>
+        <div class="vs-badge">VS</div>
+        <div class="duelist">
+          <div class="duelist-avatar opp">?</div>
+          <p class="duelist-name" id="opp-name">Friend</p>
+          <p class="duelist-score" id="opp-score">–</p>
+        </div>
+      </div>
+      <div class="quiz-active-body">
+        <p id="chal-q-num" class="quiz-q-num">Question 1 of 10</p>
+        <p id="chal-question" class="quiz-question"></p>
+        <div id="chal-options" class="quiz-options"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════ TAB: PROFILE -->
+  <div id="tab-profile" class="tab">
+    <div class="tab-scroll">
+
+      <div class="profile-hero">
+        <div class="profile-avatar" id="profile-avatar">R</div>
+        <h2 id="profile-name">Rhapsody Reader</h2>
+        <p id="profile-handle" class="profile-handle">@user</p>
+        <div class="profile-badges" id="profile-badges"></div>
+      </div>
+
+      <div class="profile-stats">
+        <div class="pstat"><p id="p-streak">0</p><span>Streak</span></div>
+        <div class="pstat"><p id="p-points">0</p><span>Points</span></div>
+        <div class="pstat"><p id="p-rank">#–</p><span>Rank</span></div>
+        <div class="pstat"><p id="p-read">0</p><span>Days Read</span></div>
+      </div>
+
+      <div class="achievement-section">
+        <p class="section-title">Achievements</p>
+        <div class="achievements-grid" id="achievements-grid"></div>
+      </div>
+
+      <div class="settings-section">
+        <p class="section-title">Settings</p>
+        <div class="settings-list">
+          <div class="setting-row" onclick="toggleNotif()">
+            <span>🔔 Daily Reminders</span>
+            <div class="toggle" id="notif-toggle"></div>
+          </div>
+          <div class="setting-row" onclick="switchTab('archive')">
+            <span>📖 Reading History</span>
+            <span class="setting-arrow">›</span>
+          </div>
+          <div class="setting-row" onclick="openCommunity()">
+            <span>👥 Lovers of the Word Community</span>
+            <span class="setting-arrow">›</span>
+          </div>
+          <div class="setting-row" onclick="shareApp()">
+            <span>📤 Share App</span>
+            <span class="setting-arrow">›</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rhapsody branding -->
+      <div class="brand-footer">
+        <div class="brand-logo-wrap">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs>
+              <radialGradient id="ballGrad2" cx="42%" cy="38%" r="60%">
+                <stop offset="0%" stop-color="#C8EEFF"/>
+                <stop offset="55%" stop-color="#2B8FD4"/>
+                <stop offset="100%" stop-color="#0A4A80"/>
+              </radialGradient>
+            </defs>
+            <g fill="#C9A84C">
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(0,50,50)"/>
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(30,50,50)"/>
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(60,50,50)"/>
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(90,50,50)"/>
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(120,50,50)"/>
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(150,50,50)"/>
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(180,50,50)"/>
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(210,50,50)"/>
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(240,50,50)"/>
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(270,50,50)"/>
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(300,50,50)"/>
+              <polygon points="50,3 51.5,7.5 56,7.5 52.5,10 54,14.5 50,12 46,14.5 47.5,10 44,7.5 48.5,7.5" transform="rotate(330,50,50)"/>
+            </g>
+            <circle cx="50" cy="50" r="32" fill="url(#ballGrad2)" stroke="#C9A84C" stroke-width="1.5"/>
+            <text x="50" y="67" font-family="Georgia,serif" font-size="42" font-weight="bold" fill="#FFE033" text-anchor="middle" stroke="#B8860B" stroke-width="0.8">R</text>
+          </svg>
+        </div>
+        <p class="brand-name">Rhapsody of Realities</p>
+        <p class="brand-sub">by Pastor Chris Oyakhilome</p>
+        <button class="brand-subscribe-btn" onclick="openSubscribe()">Subscribe at rhapsodyofrealities.org</button>
+      </div>
+
+      <div class="bottom-spacer"></div>
+    </div>
+  </div>
+
+</div><!-- end #app -->
+
+<!-- MODAL -->
+<div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ SCRIPTS -->
+<!-- 1. Content A (creates CONTENT object, days 1–15) -->
+<script src="content-april-2026-a.js"></script>
+<!-- 2. Content B (extends CONTENT object, days 16–30) -->
+<script src="content-april-2026-b.js"></script>
+<!-- 3. App engine (reads CONTENT, runs everything) -->
+<script src="app.js"></script>
+
+</body>
+</html>
